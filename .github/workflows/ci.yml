@@ -47,6 +47,19 @@ jobs:
           NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: shoesafari-ci.appspot.com
           NEXT_PUBLIC_FIREBASE_APP_ID: 1:123:web:ci-placeholder
 
+  accessibility:
+    name: Storefront accessibility checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 18
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e:accessibility
+
   contract:
     name: Soroban contract checks
     runs-on: ubuntu-latest
