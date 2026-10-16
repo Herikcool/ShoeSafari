@@ -2,6 +2,12 @@
 
 The browser and server helpers for the ShoeSafari Stellar checkout live in `lib/stellar/`. Import only the module needed by the caller; `checkout.ts` is the payment entry point, while the other modules expose lower-level wallet, account, event, and contract helpers.
 
+The public Soroban checkout surface is versioned in
+[`contracts/checkout/interface/checkout-v1.json`](../contracts/checkout/interface/checkout-v1.json).
+It is the reference for contract method signatures, argument order, event
+names, and order status values. Run `npm run check:checkout-interface` when
+changing the frontend decoder or the contract interface.
+
 ## Payment
 
 ### `lib/stellar/checkout.ts`
@@ -89,7 +95,8 @@ The browser and server helpers for the ShoeSafari Stellar checkout live in `lib/
 | Export | Purpose |
 | --- | --- |
 | `OrderStatus`, `OrderDetails`, `OrderActionResult`, `OrderEvent` | Order state, contract-read, action, and decoded event shapes. |
-| `readOrder(orderId)` | Simulate a contract read and return order details, or `null` when no order exists. |
+| `ReadOrderResult`, `OrderReadError` | Discriminated read outcome (`found`, `not-found`, or typed `error`) and failure details. |
+| `readOrder(orderId)` | Simulate a read-only contract query without wallet or funding lookup; returns a typed found, missing, or error result. |
 | `dispatchOrder(orderId)` | Ask the connected wallet to dispatch a paid order. |
 | `refundOrder(orderId)` | Ask the connected wallet to refund an eligible order. |
 | `eventToOrder(event)` | Convert a decoded contract event into an order event record. |
