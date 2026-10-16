@@ -34,7 +34,7 @@
     "test:rules:firestore": "npx --yes firebase-tools@13.35.1 --config firebase.firestore.json --project demo-shoesafari emulators:exec --only firestore \"npx vitest run --config vitest.rules.config.js tests/rules/firestore.rules.test.js\"",
     "test:rules:storage": "npx --yes firebase-tools@13.35.1 --config firebase.storage.json --project demo-shoesafari emulators:exec --only storage \"npx vitest run --config vitest.rules.config.js tests/rules/storage.rules.test.js tests/rules/storage-authorization.rules.test.js\"",
     "test:e2e": "playwright test",
-    "test:e2e:accessibility": "playwright test e2e/accessibility.spec.ts",
+    "test:e2e:accessibility": "playwright test e2e/accessibility.spec.tsx",
     "test:e2e:install": "playwright install chromium",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
